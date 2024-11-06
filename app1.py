@@ -11,6 +11,18 @@ model = load_model('first_mode.h5', compile=False)
 # Define the class names (replace with your actual class names)
 class_names = ['Disgust', 'Surprise', 'Fear', 'Happy', 'Neutral', 'Sad', 'Anger']  # Update with the real class names
 
+def get_emoji(class_name):
+    emoji_dict = {
+        'Happy': '😀',
+        'Surprise': '😦',
+        'Anger': '😠',
+        'Sad': '☹️',
+        'Disgust': '🤢',
+        'Fear': '😨',
+        'Neutral': '😐'
+    }
+    return emoji_dict.get(class_name, '')
+
 # Set Streamlit to use centered layout
 st.set_page_config(layout="centered", initial_sidebar_state="auto", page_title="Face Emotions Classification", page_icon="😊")
 
@@ -25,7 +37,7 @@ with st.sidebar:
 # Page routing logic based on selected menu
 if selected == "Try the Model":
     # Streamlit interface for image classification
-    st.title('🖼️ Face Emotions with Pre-trained Model')
+    st.title('🙂 Face Emotions Recognition (FER)')
 
     # File uploader for an image
     uploaded_file = st.file_uploader("📂 Choose an image to classify", type=["jpg", "jpeg", "png"])
@@ -45,13 +57,14 @@ if selected == "Try the Model":
         prediction = model.predict(image_array)
         predicted_label = np.argmax(prediction, axis=1)[0]
         predicted_class = class_names[predicted_label]
+        predicted_emoji = get_emoji(predicted_class)
 
         # Display the result side by side
         col1, col2 = st.columns(2)
         with col1:
             st.image(image, caption='🖼️ Uploaded Image', use_column_width=True)
         with col2:
-            st.markdown(f"<h1 style='font-size: 32px;'>🔮 Predicted Class: {predicted_class}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h1 style='font-size: 32px;'>🔮 Predicted Class: {predicted_class} {predicted_emoji}</h1>", unsafe_allow_html=True)
 
 elif selected == "Project Overview":
     # Streamlit interface for project overview
