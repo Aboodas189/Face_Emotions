@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st 
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
@@ -13,13 +13,13 @@ class_names = ['Disgust', 'Surprise', 'Fear', 'Happy', 'Neutral', 'Sad', 'Anger'
 
 def get_emoji(class_name):
     emoji_dict = {
-        'Happy': '😀',
-        'Surprise': '😦',
-        'Anger': '😠',
-        'Sad': '☹️',
-        'Disgust': '🤢',
-        'Fear': '😨',
-        'Neutral': '😐'
+        'Happy': '<span style="font-size: 150px;">😀</span>',
+        'Surprise': '<span style="font-size: 150px;">😦</span>',
+        'Anger': '<span style="font-size: 150px;">😠</span>',
+        'Sad': '<span style="font-size: 150px;">☹️</span>',
+        'Disgust': '<span style="font-size: 150px;">🤢</span>',
+        'Fear': '<span style="font-size: 150px;">😨</span>',
+        'Neutral': '<span style="font-size: 150px;">😐</span>'
     }
     return emoji_dict.get(class_name, '')
 
@@ -62,9 +62,9 @@ if selected == "Try the Model":
         # Display the result side by side
         col1, col2 = st.columns(2)
         with col1:
-            st.image(image, caption='🖼️ Uploaded Image', use_column_width=True)
+            st.image(image, caption='🖼️ Uploaded Image', width=350)
         with col2:
-            st.markdown(f"<h1 style='font-size: 32px;'>🔮 Predicted Class: {predicted_class} {predicted_emoji}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<div style='text-align: center;'><h2>🔮 Predicted Class: {predicted_class}</h2><h1>{predicted_emoji}</h1></div>", unsafe_allow_html=True)
 
 elif selected == "Project Overview":
     # Streamlit interface for project overview
@@ -105,8 +105,6 @@ elif selected == "Project Overview":
         - **Abdullah Bin Ahmed**: 
         GD Computer Science, Data Scientist
         """)
-    
-
     
     # Display business cards if available in the directory
     try:
